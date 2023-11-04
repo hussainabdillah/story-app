@@ -3,6 +3,7 @@ package view.main
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import data.response.StoryResponse
 import view.detail.DetailActivity
 
 class ListStoryAdapter :
-    ListAdapter<StoryResponse, ListStoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
+    PagingDataAdapter<StoryResponse, ListStoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var binding: ItemStoryBinding
 

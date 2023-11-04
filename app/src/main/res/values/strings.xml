@@ -18,6 +18,9 @@
     <string name="password">Password</string>
     <string name="content_description_start_icon">person</string>
 
+    <!--    Main Page-->
+    <string name="retry">Retry</string>
+
     <!--    Menu Item-->
     <string name="logout">Log Out</string>
 

@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         storyAdapter = ListStoryAdapter()
         binding.rvStories.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = storyAdapter
+            adapter = storyAdapter.withLoadStateFooter( footer = LoadingStateAdapter { storyAdapter.retry() })
         }
 
     }
@@ -92,13 +92,29 @@ class MainActivity : AppCompatActivity() {
             token = "Bearer " + it.token
             Log.d(TAG, "setupUser: $token")
             Log.d(TAG, "setupName: ${it.email}")
-            mainViewModel.getStories(token)
+//            mainViewModel.storyPaging(token)
+
         }
-        mainViewModel.storiesListResponse.observe(this, { storyListResponse ->
-            if (storyListResponse != null) {
-                storyAdapter.submitList(storyListResponse.listStory)
+//        mainViewModel.storiesListPaging.observe(this@MainActivity) {
+//            storyAdapter.submitData(lifecycle, it)
+//        }
+//        storyAdapter.withLoadStateFooter(
+//            footer = LoadingStateAdapter { storyAdapter.retry() }
+//        )
+        mainViewModel.storiesListPaging.observe(this, {
+            if (it != null) {
+                storyAdapter.submitData(lifecycle, it)
+            }
+            else {
+                Log.d(TAG, "setupData: null")
             }
         })
+
+//        mainViewModel.storiesListResponse.observe(this, { storyListResponse ->
+//            if (storyListResponse != null) {
+//                storyAdapter.submitList(storyListResponse.listStory)
+//            }
+//        })
     }
 
     private fun setupAction() {
