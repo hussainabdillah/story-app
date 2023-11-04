@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.App" parent="Theme.Material3.Light">
+        ...
+        <item name="colorPrimary">@color/main</item>
+        <item name="colorOnSurface">@color/font</item>
+        <item name="colorError">@color/design_default_color_error</item>
+        <item name="android:fontFamily">@font/poppinsmedium</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="addFab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="shapeAppearance">@style/CircleShapeAppearance</item>
+        <item name="backgroundTint">@color/main</item>
+    </style>
+
+    <style name="CircleShapeAppearance" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="poppinsFont">
+        <item name="android:fontFamily">@font/poppinsmedium</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+</resources>

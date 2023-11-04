@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="view.detail.DetailActivity">
+
+    <ImageView
+        android:id="@+id/detailStoryView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:transitionName="story"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/detailStoryTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:transitionName="title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailStoryView"
+        tools:text="@string/name" />
+
+    <TextView
+        android:id="@+id/detailStoryDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:transitionName="description"
+        app:layout_constraintEnd_toEndOf="@id/detailStoryTitle"
+        app:layout_constraintStart_toStartOf="@id/detailStoryTitle"
+        app:layout_constraintTop_toBottomOf="@id/detailStoryTitle"
+        tools:text="@string/description_hint" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
