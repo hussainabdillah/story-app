@@ -1,4 +1,4 @@
-package view.detail
+package ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

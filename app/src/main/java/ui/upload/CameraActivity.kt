@@ -1,4 +1,4 @@
-package view.upload
+package ui.upload
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Build

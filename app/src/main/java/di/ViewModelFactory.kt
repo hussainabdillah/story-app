@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import data.repository.UserRepository
-import view.login.LoginViewModel
-import view.main.MainViewModel
-import view.register.RegisterViewModel
-import view.upload.UploadViewModel
+import ui.login.LoginViewModel
+import ui.main.MainViewModel
+import ui.maps.MapsViewModel
+import ui.register.RegisterViewModel
+import ui.upload.UploadViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -25,6 +26,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(UploadViewModel::class.java) -> {
                 UploadViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

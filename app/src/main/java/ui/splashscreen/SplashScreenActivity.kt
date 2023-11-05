@@ -1,4 +1,4 @@
-package view.splashscreen
+package ui.splashscreen
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.storyapp.R
 import di.ViewModelFactory
-import view.main.MainActivity
-import view.main.MainViewModel
-import view.welcome.WelcomeActivity
+import ui.main.MainActivity
+import ui.main.MainViewModel
+import ui.welcome.WelcomeActivity
 
 @Suppress("DEPRECATION")
 class SplashScreenActivity : AppCompatActivity() {

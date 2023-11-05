@@ -195,6 +195,31 @@ class UserRepository private constructor(
         ).liveData
     }
 
+    fun getStoriesWithLocation(token: String) {
+        _isLoading.value = true
+        val client = apiService.getStoriesWithLocation(token)
+
+        client.enqueue(object : Callback<StoryListResponse> {
+            override fun onResponse(
+                call: Call<StoryListResponse>,
+                response: Response<StoryListResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful && response.body() != null) {
+                    _storyListResponse.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}, ${response.body()?.message.toString()}"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<StoryListResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
+
     fun uploadStory(token: String, imageFile: File, description: String) {
         _isLoading.value = true
         val requestBody = description.toRequestBody("text/plain".toMediaType())

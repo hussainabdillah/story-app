@@ -1,4 +1,4 @@
-package view.upload
+package ui.upload
 
 import android.content.Intent
 import android.net.Uri
@@ -16,7 +16,7 @@ import di.getImageUri
 import di.reduceFileImage
 import di.uriToFile
 import di.ViewModelFactory
-import view.main.MainActivity
+import ui.main.MainActivity
 
 @Suppress("DEPRECATION")
 class UploadActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package view.register
+package ui.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -12,25 +12,28 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.storyapp.databinding.ActivityRegisterBinding
+import com.dicoding.storyapp.databinding.ActivityLoginBinding
+import data.pref.UserModel
 import di.ViewModelFactory
-import view.login.LoginActivity
+import ui.main.MainActivity
+import ui.register.RegisterActivity
 
-class RegisterActivity : AppCompatActivity() {
-    private val registerViewModel by viewModels<RegisterViewModel> {
+class LoginActivity : AppCompatActivity() {
+    private val loginViewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    private lateinit var binding: ActivityRegisterBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupView()
         setupAction()
         playAnimation()
     }
+
 
     private fun setupView() {
         @Suppress("DEPRECATION")
@@ -46,27 +49,38 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.signupButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             showLoading()
-            val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            registerViewModel.register(name, email, password)
-            registerViewModel.toastText.observe(this@RegisterActivity) {
+            loginViewModel.login(email, password)
+            loginViewModel.loginResponse.observe(this@LoginActivity) { response ->
+                loginViewModel.saveSession(
+                    UserModel(
+                        response.loginResult?.name.toString(),
+                        response.loginResult?.token.toString(),
+                        true
+                    )
+                )
+            }
+
+            loginViewModel.toastText.observe(this@LoginActivity) {
                 it.getContentIfNotHandled()?.let { toastText ->
                     Toast.makeText(
-                        this@RegisterActivity, toastText, Toast.LENGTH_SHORT
+                        this@LoginActivity, toastText, Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
-            registerViewModel.registerResponse.observe(this@RegisterActivity) { response ->
+            loginViewModel.loginResponse.observe(this@LoginActivity) { response ->
                 if (response.error == false) {
                     AlertDialog.Builder(this).apply {
                         setTitle("Success!")
-                        setMessage("Congratulations, your account $email has been successfully created")
+                        setMessage("Login successful! Let's post your stories")
                         setPositiveButton("Continue") { _, _ ->
-                            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                            val intent = Intent(context, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
                             finish()
                         }
                         create()
@@ -75,11 +89,11 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
 
-        }
-        binding.labelLogin.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
 
+        }
+        binding.labelSignup.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun playAnimation() {
@@ -89,23 +103,21 @@ class RegisterActivity : AppCompatActivity() {
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
-        val message = ObjectAnimator.ofFloat(binding.messageAlreadyAccount, View.ALPHA, 1f).setDuration(300)
-        val signup = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(300)
+        val message = ObjectAnimator.ofFloat(binding.messageDontHaveAccount, View.ALPHA, 1f).setDuration(300)
+        val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(300)
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(1000)
 
-        val labelName = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(300)
         val labelEmail = ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(300)
         val labelPassword = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(300)
-        val formName = ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(300)
         val formEmail = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(300)
         val formPassword = ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(300)
 
         val togetherForm = AnimatorSet().apply {
-            playTogether(labelName, labelEmail, labelPassword, formName, formEmail, formPassword)
+            playTogether(labelEmail, labelPassword, formEmail, formPassword)
         }
 
         val together = AnimatorSet().apply {
-            playTogether(message, signup)
+            playTogether(message, login)
         }
 
         AnimatorSet().apply {
@@ -115,8 +127,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        registerViewModel.isLoading.observe(this) {
-                binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        loginViewModel.isLoading.observe(this) {
+            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 

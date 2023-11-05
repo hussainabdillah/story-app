@@ -1,4 +1,4 @@
-package view.main
+package ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -31,9 +31,4 @@ class MainViewModel(private val uRepository: UserRepository) : ViewModel() {
         }
     }
 
-//    fun getStories(token: String) {
-//        viewModelScope.launch {
-//            uRepository.getStories(token)
-//        }
-//    }
 }

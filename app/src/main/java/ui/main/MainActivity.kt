@@ -1,4 +1,4 @@
-package view.main
+package ui.main
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.storyapp.R
 import com.dicoding.storyapp.databinding.ActivityMainBinding
 import di.ViewModelFactory
-import view.upload.UploadActivity
-import view.welcome.WelcomeActivity
+import ui.maps.MapsActivity
+import ui.upload.UploadActivity
+import ui.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
     private val mainViewModel by viewModels<MainViewModel> {
@@ -54,6 +55,10 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "Token: ${it.token}")
                     Log.d(TAG, "Name: ${it.email}")
                 }
+                return true
+            }
+            R.id.action_map -> {
+                startActivity(Intent(this@MainActivity, MapsActivity::class.java))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

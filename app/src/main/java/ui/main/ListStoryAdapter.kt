@@ -1,17 +1,16 @@
-package view.main
+package ui.main
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.dicoding.storyapp.databinding.ItemStoryBinding
 import data.response.StoryResponse
-import view.detail.DetailActivity
+import ui.detail.DetailActivity
 
 class ListStoryAdapter :
     PagingDataAdapter<StoryResponse, ListStoryAdapter.ListViewHolder>(DIFF_CALLBACK) {

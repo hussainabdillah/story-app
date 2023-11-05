@@ -1,4 +1,4 @@
-package view.welcome
+package ui.welcome
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -10,8 +10,8 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.storyapp.databinding.ActivityWelcomeBinding
-import view.login.LoginActivity
-import view.register.RegisterActivity
+import ui.login.LoginActivity
+import ui.register.RegisterActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding

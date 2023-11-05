@@ -1,4 +1,4 @@
-package view.upload
+package ui.upload
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

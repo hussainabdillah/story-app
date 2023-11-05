@@ -32,6 +32,14 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
+    <string name="enable_location">Enable Location</string>
     <string name="description_hint">Add description ...</string>
     <string name="empty_image_warning">Please insert the image file first</string>
+
+    <!--    Maps Page-->
+    <string name="title_activity_maps">Maps Story</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>
