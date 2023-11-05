@@ -3,7 +3,6 @@ package ui.maps
 import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
 import android.content.res.Resources
-import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.dicoding.storyapp.R
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -105,18 +103,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapsViewModel.getStoriesWithLocation(token)
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isIndoorLevelPickerEnabled = true
         mMap.uiSettings.isCompassEnabled = true
@@ -141,27 +129,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
             }
-//            if (it.listStory.isNotEmpty()) {
-//                val random = (0 until it.listStory.size).random()
-//                mMap.animateCamera(
-//                    CameraUpdateFactory.newLatLngZoom(
-//                        LatLng(
-//                            it.listStory[random].lat,
-//                            it.listStory[random].lon
-//                        ), 15f
-//                    )
-//                )
-//            } else {
-//                val lastLocation = mMap.myLocation.let { location: Location? ->
-//                    LatLng(
-//                        location?.latitude ?: 0.0,
-//                        location?.longitude ?: 0.0
-//                    )
-//                }
-//                mMap.animateCamera(
-//                    CameraUpdateFactory.newLatLngZoom(lastLocation, 15f)
-//                )
-//            }
         }
     }
 

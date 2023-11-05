@@ -8,7 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import data.StoryPagingSource
+import data.paging.StoryPagingSource
 import data.api.ApiService
 import data.pref.UserModel
 import data.pref.UserPreference
@@ -159,30 +159,6 @@ class UserRepository private constructor(
             }
         })
     }
-
-//    fun getStories(token: String) {
-//        _isLoading.value = true
-//        val client = apiService.getStories(token)
-//
-//        client.enqueue(object : Callback<StoryListResponse> {
-//            override fun onResponse(
-//                call: Call<StoryListResponse>,
-//                response: Response<StoryListResponse>
-//            ) {
-//                _isLoading.value = false
-//                if (response.isSuccessful && response.body() != null) {
-//                    _storyListResponse.value = response.body()
-//                } else {
-//                    Log.e(TAG, "onFailure: ${response.message()}, ${response.body()?.message.toString()}"
-//                    )
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<StoryListResponse>, t: Throwable) {
-//                Log.e(TAG, "onFailure: ${t.message.toString()}")
-//            }
-//        })
-//    }
 
     fun getStories(): LiveData<PagingData<StoryResponse>> {
         return Pager(

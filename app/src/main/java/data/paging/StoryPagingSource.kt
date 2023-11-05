@@ -1,4 +1,4 @@
-package data
+package data.paging
 
 import android.util.Log
 import androidx.paging.PagingSource
@@ -29,7 +29,6 @@ class StoryPagingSource(
             val responseData = apiService.getStories("Bearer $token", position, params.loadSize)
 
             if (token.isNotEmpty()) {
-//                val response = apiService.getListStories(token, position, params.loadSize)
                 if (responseData.isSuccessful) {
                     Log.d("Story Paging Source", "Load Result: ${responseData.body()}")
                     LoadResult.Page(
@@ -41,31 +40,22 @@ class StoryPagingSource(
                     val jsonObject = responseData.errorBody()?.string()?.let { JSONObject(it) }
                     val message = jsonObject?.getString("message")
                     Log.e(
-                        "getListStories",
+                        "List Stories",
                         "Load Error: ${responseData.message()}, ${responseData.code()} $message"
                     )
-                    LoadResult.Error(Exception("Something went wrong"))
+                    LoadResult.Error(Exception("Timeout Exception"))
                 }
             } else {
                 Log.e("Token", "Load Error: $token")
                 LoadResult.Error(Exception("Token is Empty"))
             }
-        } catch (e: UnknownHostException) {
-            Log.e("UnknownHostException", "Load Error: ${e.message}")
+        } catch (exception: UnknownHostException) {
+            Log.e("UnknownHostException", "Load Error: ${exception.message}")
             return LoadResult.Error(Exception("No Internet Connection"))
-        } catch (e: Exception) {
-            Log.e("Exception", "Load Error: ${e.message}")
-            return LoadResult.Error(Exception(e.message))
+        } catch (exception: Exception) {
+            Log.e("Exception", "Load Error: ${exception.message}")
+            return LoadResult.Error(Exception(exception.message))
         }
-//            LoadResult.Page(
-//                data = responseData.body()?.listStory ?: emptyList(),
-//                prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-//                nextKey = if (responseData.body()?.listStory.isNullOrEmpty()) null else position + 1
-//            )
-//        } catch (exception: Exception) {
-//            Log.e("Exception", "Load Error: ${exception.message}")
-//            return LoadResult.Error(exception)
-//        }
     }
 
     private companion object {

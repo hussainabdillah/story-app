@@ -97,15 +97,7 @@ class MainActivity : AppCompatActivity() {
             token = "Bearer " + it.token
             Log.d(TAG, "setupUser: $token")
             Log.d(TAG, "setupName: ${it.email}")
-//            mainViewModel.storyPaging(token)
-
         }
-//        mainViewModel.storiesListPaging.observe(this@MainActivity) {
-//            storyAdapter.submitData(lifecycle, it)
-//        }
-//        storyAdapter.withLoadStateFooter(
-//            footer = LoadingStateAdapter { storyAdapter.retry() }
-//        )
         mainViewModel.storiesListPaging.observe(this, {
             if (it != null) {
                 storyAdapter.submitData(lifecycle, it)
@@ -115,11 +107,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-//        mainViewModel.storiesListResponse.observe(this, { storyListResponse ->
-//            if (storyListResponse != null) {
-//                storyAdapter.submitList(storyListResponse.listStory)
-//            }
-//        })
     }
 
     private fun setupAction() {

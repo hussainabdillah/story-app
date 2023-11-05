@@ -19,8 +19,6 @@ class MainViewModel(private val uRepository: UserRepository) : ViewModel() {
     val storiesListPaging: LiveData<PagingData<StoryResponse>> =
         uRepository.getStories().cachedIn(viewModelScope)
 
-
-
     fun getUser(): LiveData<UserModel> {
         return uRepository.getUser().asLiveData()
     }
