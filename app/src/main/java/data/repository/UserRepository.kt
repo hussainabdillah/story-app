@@ -4,12 +4,18 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import data.paging.StoryPagingSource
 import data.api.ApiService
 import data.pref.UserModel
 import data.pref.UserPreference
 import data.response.LoginResponse
 import data.response.RegisterResponse
 import data.response.StoryListResponse
+import data.response.StoryResponse
 import data.response.UploadStoryResponse
 import di.Event
 import kotlinx.coroutines.flow.Flow
@@ -154,9 +160,20 @@ class UserRepository private constructor(
         })
     }
 
-    fun getStories(token: String) {
+    fun getStories(): LiveData<PagingData<StoryResponse>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(userPreference, apiService)
+            }
+        ).liveData
+    }
+
+    fun getStoriesWithLocation(token: String) {
         _isLoading.value = true
-        val client = apiService.getStories(token)
+        val client = apiService.getStoriesWithLocation(token)
 
         client.enqueue(object : Callback<StoryListResponse> {
             override fun onResponse(
@@ -177,6 +194,7 @@ class UserRepository private constructor(
             }
         })
     }
+
 
     fun uploadStory(token: String, imageFile: File, description: String) {
         _isLoading.value = true

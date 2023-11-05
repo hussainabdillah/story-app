@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,75 +17,81 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCxf7mrp-8iPaduu-DZx8khIg_C8778sac" />
+
         <activity
-            android:name="view.splashscreen.SplashScreenActivity"
+            android:name="ui.splashscreen.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="view.welcome.WelcomeActivity"
-            android:exported="true"
-            android:theme="@style/Theme.App">
-        </activity>
+            android:name="ui.maps.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps"
+            android:theme="@style/Theme.App"/>
         <activity
-            android:name="view.register.RegisterActivity"
+            android:name="ui.welcome.WelcomeActivity"
             android:exported="true"
-            android:theme="@style/Theme.App">
-        </activity>
+            android:theme="@style/Theme.App" />
         <activity
-            android:name="view.login.LoginActivity"
+            android:name="ui.register.RegisterActivity"
             android:exported="true"
-            android:theme="@style/Theme.App">
-        </activity>
+            android:theme="@style/Theme.App" />
         <activity
-            android:name="view.main.MainActivity"
+            android:name="ui.login.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.App">
-        </activity>
+            android:theme="@style/Theme.App" />
         <activity
-            android:name="view.detail.DetailActivity"
+            android:name="ui.main.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.App">
-        </activity>
+            android:theme="@style/Theme.App" />
         <activity
-            android:name="view.upload.UploadActivity"
+            android:name="ui.detail.DetailActivity"
             android:exported="true"
-            android:theme="@style/Theme.App">
-        </activity>
+            android:theme="@style/Theme.App" />
         <activity
-            android:name="view.upload.CameraActivity"
+            android:name="ui.upload.UploadActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.App" />
+        <activity
+            android:name="ui.upload.CameraActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
-
         <!-- Trigger Google Play services to install the backported photo picker module. -->
-        <!--suppress AndroidDomInspection -->
-        <service android:name="com.google.android.gms.metadata.ModuleDependencies"
+        <!-- suppress AndroidDomInspection -->
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
             android:enabled="false"
             android:exported="false"
-            tools:ignore="MissingClass">
+            tools:ignore="MissingClass" >
             <intent-filter>
                 <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
             </intent-filter>
-            <meta-data android:name="photopicker_activity:0:required" android:value="" />
+
+            <meta-data
+                android:name="photopicker_activity:0:required"
+                android:value="" />
+
         </service>
-
-
     </application>
 
 </manifest>
